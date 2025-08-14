@@ -37,7 +37,8 @@
 
 ## Performance Optimization
 
-* [Optimizing 3D Experiences for WebXR](optimizing-3d-experiences-for-viverse/README.md)
+* [Optimizing 3D Experiences for WebXR](webxr-optimization/README.md)
+* [Key Optimization Standards](webxr-optimization/optimization-standards.md)
 
 ## PlayCanvas SDK
 
