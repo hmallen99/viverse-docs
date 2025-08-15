@@ -103,9 +103,11 @@ gl.drawArrays(gl.TRIANGLES, 0, 3);
 
 ## Key Metrics for 3D Optimization
 
-1. Device Capabilities
-2. Performance Metrics
-3. Scene Metrics
+When building applications and optimizing for the web, and particularly WebXR, there are important metrics and capabilities to keep in mind: a developer must understand the capabilities of the hardware that they are targetting (phones, consoles, XR headsets, desktop computers); they must understand the quantitative metrics that define "good performance"; and they must understand the factors that influence the complexity of a scene, making it harder to achieve the quantitative metrics.
+
+1. [Device Capabilities](#device-capabilities)
+2. [Application Metrics](#application-metrics)
+3. [Scene Complexity Metrics](#scene-metrics)
 
 ## Device Capabilities
 
@@ -121,13 +123,15 @@ gl.drawArrays(gl.TRIANGLES, 0, 3);
 
 ### Frame Times and Frames per Second (FPS)
 
+### Resolution
+
 ### Dropped Frames
 
 ### Memory Usage
 
 ### Bundle Size
 
-## Scene Metrics
+## Scene Complexity Metrics
 
 ### Draw Calls
 
@@ -136,5 +140,7 @@ gl.drawArrays(gl.TRIANGLES, 0, 3);
 ### Material Count
 
 ### Shader Complexity
+
+### Scripting Overhead
 
 ## Performance Targets for 3D Metrics
