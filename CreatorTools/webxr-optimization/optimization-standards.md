@@ -19,8 +19,79 @@ This is very abstract. In the following example, we will show how WebGL is used 
 
 ### WebGL Example
 
-```js
+In this example, we will render a triangle to the screen.
 
+The Vertex Shader:
+```js
+const canvas = document.getElementById('myCanvas');
+const gl = canvas.getContext('webgl');
+
+// Determines the position and color of each vertex
+const vertexShaderSource = `
+  // Inputs
+  attribute vec4 position;
+  attribute vec4 color;
+
+  // Output
+  varying vec4 vColor;
+
+  void main() {
+    gl_Position = position;
+    vColor = color;
+  }
+`;
+
+// Determines the color of each fragment
+// vColor is interpolated based on the distance from each triangle vertex
+const fragmentShaderSource = `
+  precision highp float;
+  varying vec4 vColor;
+
+  void main() {
+    gl_FragColor = vColor;
+  }
+`;
+
+// Compile Vertex and Fragment Shaders for the rendering pipeline
+const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+gl.shaderSource(vertexShader, vertexShaderSource);
+gl.compileShader(vertexShader);
+
+const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+gl.shaderSource(fragmentShader, fragmentShaderSource);
+gl.compileShader(fragmentShader);
+
+const shaderProgram = gl.createProgram();
+gl.attachShader(shaderProgram, vertexShader);
+gl.attachShader(shaderProgram, fragmentShader);
+gl.linkProgram(shaderProgram);
+gl.useProgram(shaderProgram);
+
+// Allocate buffers to pass to the rendering pipeline
+const vertices = [
+//  x     y     z     r     g     b
+    0.0,  0.5,  0.0,  1.0,  0.0,  0.0,
+   -0.5, -0.5,  0.0,  0.0,  1.0,  0.0,
+    0.5, -0.5,  0.0,  0.0,  0.0,  1.0,
+];
+
+const vertexBuffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+var FSIZE = vertices.BYTES_PER_ELEMENT;
+var positionAttribute = gl.getAttribLocation(shaderProgram, 'position');
+gl.vertexAttribPointer(positionAttribute, 3, gl.FLOAT, false, FSIZE * 6, 0);
+gl.enableVertexAttribArray(positionAttribute);
+
+var colorAttribute = gl.getAttribLocation(shaderProgram, 'color');
+gl.vertexAttribPointer(colorAttribute, 3, gl.FLOAT, false, FSIZE * 6, FSIZE * 3);
+gl.enableVertexAttribArray(colorAttribute);
+
+// Draw to the canvas
+gl.clearColor(0.0, 0.0, 0.0, 1.0);
+gl.clear(gl.COLOR_BUFFER_BIT);
+gl.drawArrays(gl.TRIANGLES, 0, 3);
 ```
 
 ### Resources
