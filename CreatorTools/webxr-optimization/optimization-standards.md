@@ -96,6 +96,11 @@ gl.drawArrays(gl.TRIANGLES, 0, 3);
 
 ### Resources
 
+1. Canvas Tutorial: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
+2. Learning WebGL: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/By_example
+3. WebGL Fundamentals: https://webglfundamentals.org/
+4. WebGPU Fundamentals: https://webgpufundamentals.org/
+
 ## Key Metrics for 3D Optimization
 
 1. Device Capabilities
