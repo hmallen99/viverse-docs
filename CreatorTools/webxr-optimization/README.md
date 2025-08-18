@@ -11,11 +11,21 @@ VIVERSE experiences run in web browsers. This allows 3D experiences to securely 
 
 ### Reach millions of users instantly
 
+An estimated **3 billion people** have access to a 3D-capable web browser.
+
 ### Launch on any device with a web browser
+
+3D web apps reach phones, desktop computers, laptop computers, and Mixed Reality headsets via the same URL. Chrome (across all devices it runs on) alone accounts for ~68% of global browsing, making packaging and distribution straightforward. View more stats below to understand more about the wide reach of the [web platform](#by-the-numbers-potential-user-reach-for-modern-3d-web-early-2025).
 
 ### Secure by default
 
+The [web’s](https://developer.mozilla.org/en-US/docs/Web/Security) application sandbox, HTTPS, and permissions model let you consume powerful graphics, XR, and platform features with user consent and origin isolation—without building and shipping native binaries per operating system and hardware combination.
+
 ### The same standards for everyone
+
+WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized by mature standards bodies and implemented across most major web browser engines. There is no store gatekeeping and no review queues versus native app stores.
+
+## By the Numbers: 3D Web Availability
 
 ## Optimizing 3D experiences for the Web vs native platforms
 
