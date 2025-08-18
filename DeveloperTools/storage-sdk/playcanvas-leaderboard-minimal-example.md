@@ -1,14 +1,15 @@
 ---
 description: >-
-  Learn how to combine the VIVERSE Leaderboard SDK with PlayCanvas UI then
-  publish the project via VIVERSE Studio
+  Learn how to combine the VIVERSE Storage SDK with PlayCanvas UI then publish
+  the project via VIVERSE Studio
+hidden: true
 ---
 
-# PlayCanvas Leaderboard minimal example
+# PlayCanvas Storage minimal example
 
-Leaderboards allow players to compare their performance against others, increasing engagement time and replayability. VIVERSE's Leaderboard SDK can be combined with PlayCanvas' powerful screen- and screen-space Element UI systems to provide an end-to-end solution for this in your game.
+The Storage SDK empowers developers to add persistent data to their games per world for logged-in users. VIVERSE's Storage SDK can be combined with PlayCanvas' powerful screen- and screen-space Element UI systems to provide an end-to-end solution for saving persistent data in your game. This page will a provide minimum viable example.
 
-<figure><img src="../.gitbook/assets/image (23).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (22).png" alt="" width="563"><figcaption></figcaption></figure>
 
 ### Pre-requisite #1: Create a World, App ID and Leaderboard in VIVERSE Studio&#x20;
 
@@ -16,11 +17,7 @@ All SDK usage requires an App ID tied to a specific VIVERSE World, which can be 
 
 > _**NOTE:** because VIVERSE SDKs require an App ID, this means VIVERSE SDKs cannot be used with projects published via the PlayCanvas Create SDK extension, which do not have App IDs._
 
-<div><figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot 2025-07-31 113911.png" alt=""><figcaption></figcaption></figure></div>
-
-After creating your world, navigate to its "SDK Settings" tab, and click Add New Leaderboard. In the Leaderboard Configuration section, define the necessary leaderboard parameters for this world.
-
-<div><figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot 2025-07-31 115641.png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot 2025-07-31 113911.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot 2025-07-31 115641.png" alt=""><figcaption></figcaption></figure></div>
 
 ### Pre-requisite #2: Clone the PlayCanvas Scrolling UI tutorial
 
@@ -30,7 +27,7 @@ PlayCanvas already maintains many great tutorials for their engine, including a 
 
 ### Step 1: Add the VIVERSE SDK as an external script
 
-Once the project is forked, go to the new project Settings in the PlayCanvas editor, and in the EXTERNAL SCRIPTS menu, add one URL entry, and point to [`https://www.viverse.com/static-assets/viverse-sdk/index.umd.cjs`](https://www.viverse.com/static-assets/viverse-sdk/index.umd.cjs) as in this screenshot. This will ensure the VIVERSE SDK is loaded first and that your PlayCanvas logic has full access to its global methods.
+Once the project is forked, go to the new project Settings in the PlayCanvas editor, and in the EXTERNAL SCRIPTS menu, add one URL entry, and point to \`[`https://www.viverse.com/static-assets/viverse-sdk/1.2.9/viverse-sdk.umd.js`](https://www.viverse.com/static-assets/viverse-sdk/1.2.9/viverse-sdk.umd.js)\` as in this screenshot. This will ensure the VIVERSE SDK is loaded first and that your PlayCanvas logic has full access to its global methods.
 
 <figure><img src="../.gitbook/assets/image (15).png" alt="" width="153"><figcaption></figcaption></figure>
 
@@ -102,7 +99,7 @@ Now we should have valid credentials to make requests to the Leaderboard SDK. Le
 
 ### Step 4: Fetch high scores and tie response to PlayCanvas UI elements
 
-Now we should call `getLeaderboard()` with a valid config object, get a [Leaderboard Response](./#leaderboard-response-object) back, then tie that data into our PlayCanvas UI.\
+Now we should call `getLeaderboard()` with a valid config object, get a [Leaderboard Response](../leaderboard-sdk/#leaderboard-response-object) back, then tie that data into our PlayCanvas UI.\
 \
 One we have a response, the Dynamic UI Scrolling View tutorial already contains UI elements for a scrollable list of score values of arbitrary length, including an event to spawn a new instance of a "score" value with template UI. I modified the base template to include a left-aligned text element for the player's name, and a right-aligned text element for score, and fired the `addScoreEntry` event containing that data.
 
@@ -172,7 +169,7 @@ this.getLeaderboardButton.button.on("click", () => {
 });
 ```
 
-With those references set, we're getting leaderboard data on click, then firing the `addScoreEntry` event on every ranked score returned in the [Leaderboard Response](./#leaderboard-response-object) according to the request configuration!&#x20;
+With those references set, we're getting leaderboard data on click, then firing the `addScoreEntry` event on every ranked score returned in the [Leaderboard Response](../leaderboard-sdk/#leaderboard-response-object) according to the request configuration!&#x20;
 
 The PlayCanvas demo we forked already includes an event listener that spawns a new UI element template, which we can modify slightly to handle our leaderboard data structure:
 
