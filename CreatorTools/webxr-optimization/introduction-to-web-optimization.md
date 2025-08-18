@@ -11,11 +11,21 @@ VIVERSE experiences run in web browsers. This allows 3D experiences to securely 
 
 ### Reach millions of users instantly
 
-An estimated **3 billion people** have access to a 3D-capable web browser.
+An estimated **3 billion people** have access to a 3D-capable web browser and high-speed internet connection:
 
-### Launch on any device with a web browser
+<figure><img src=".gitbook/assets/3D Capable Demographics.png" alt="" width="375"><figcaption><p>Population of 3D Capable Users</p></figcaption></figure>
 
-3D web apps reach phones, desktop computers, laptop computers, and Mixed Reality headsets via the same URL. Chrome alone accounts for ~68% of global browsing.
+### Launch on any device with a 3D-compatible web browser
+
+3D web apps reach phones, desktop computers, laptop computers, and mixed reality (XR) headsets via the same URL. The vast majority of internet browsing happens on 3D-capable browsers (Chrome, Edge, Firefox, and Safari) running on 3D-capable operating systems (Android, iOS, OSX, Windows).
+
+<figure><img src=".gitbook/assets/Browser Demographics.png" alt="" width="375"><figcaption><p>Browser Demographics</p></figcaption></figure>
+
+<figure><img src=".gitbook/assets/OS Demographics.png" alt="" width="375"><figcaption><p>Operating System Demographics</p></figcaption></figure>
+
+An estimated 95% of browsers in use support 3D experiences via the WebGL API:
+
+<figure><img src=".gitbook/assets/WebGL Support.png" alt="" width="375"><figcaption><p>WebGL Support Across Devices</p></figcaption></figure>
 
 ### Secure by default
 
@@ -25,17 +35,9 @@ The [web’s](https://developer.mozilla.org/en-US/docs/Web/Security) application
 
 WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized by mature standards bodies and implemented across most major web browser engines. There is no store gatekeeping compared to native platforms.
 
-## By the Numbers: 3D Web Availability
-
-<figure><img src=".gitbook/assets/3D Capable Demographics.png" alt="" width="375"><figcaption><p>Population of 3D Capable Users</p></figcaption></figure>
-
-<figure><img src=".gitbook/assets/OS Demographics.png" alt="" width="375"><figcaption><p>Operating System Demographics</p></figcaption></figure>
-
-<figure><img src=".gitbook/assets/Browser Demographics.png" alt="" width="375"><figcaption><p>Browser Demographics</p></figcaption></figure>
-
-<figure><img src=".gitbook/assets/WebGL Support.png" alt="" width="375"><figcaption><p>WebGL Support Across Devices</p></figcaption></figure>
-
 ## Optimizing 3D experiences for the Web vs native platforms
+
+The core principles of game development are the same across web and native, but there are key optimizations to make on the web platform to ensure that users have a great first impression and keep coming back:
 
 ### Load in fast
 
@@ -45,7 +47,7 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 - Load in assets as you go - one benefit of the browser is that assets can be continuously fetched over the network. Rather than loading everything in at once, only download it when you need it.
 - Show the user something as soon as you can - users will be visiting your game from a web page, which typically load very quickly. To keep the experience seamless, make sure to render a loading bar while resources are downloading.
 
-### Expect cross-platform use
+### Prepare for cross-platform use
 
 **The same build runs across mobile, desktop, and XR platforms**. Unlike native applications, where a separate build must be created for each platform, only one build is generated for the web. This simplifies deployment, but performance tuning must happen at runtime.
 
@@ -58,19 +60,20 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 
 **Developers must tailor their experience towards running in a WebGL context**. The browser adds some CPU overhead compared to native apps to ensure the security of WebGL experiences.
 
-- Understand how draw calls impact performance - the CPU performance of a scene typically scales with the number of draw calls that occur in each frame. A draw call is a command that the engine sends to the GPU telling it to a draw a series of triangles or pixels. This operation happens very quickly on the GPU, but is very slow on the CPU, making it advantageous to batch draw calls together or strip them out entirely.
-- Reuse materials and merge static meshes - By leveraging atlas textures and texture arrays, a single material can be used across multiple meshes. This helps to batch draw calls, which typically scale with the number of meshes and materials in the scene. If a mesh does not move in the scene, it can be combined with other static meshes and materials into a single super-mesh that renders in a single draw call.
-- Leverage hardware instancing and level of detail (LOD) systems - while the browser adds some CPU overhead for security and automatic memory management, GPU performance is nearly identical to OpenGL native experiences. Thus, it is important to leverage hardware techniques like instancing to draw many copies of the same mesh without needing to process all of the copies on the CPU. This is particularly useful when rendering LOD systems, which can leverage instancing to render hundreds of background objects like plants, crowds, and buildings at lower detail at a very low CPU cost.
-- Reduce scene complexity - If CPU performance is still sub-optimal in the browser with properly batched draw calls, a user may need to reduce the complexity of the scene. This can include reducing the number of meshes in the scene, rendering animations at lower framerates, removing transparent meshes, which can incur multiple additional draw calls, and reducing the number of lights in the scene.
-- Reduce visual fidelity - If the app is GPU-bound, i.e. too much time is spent each frame drawing triangles to the canvas, consider lowering the quality of the scene. This can include: lowering the polygon count of meshes, reducing texture sizes, reducing the number of dynamic lights, removing expensive math functions from shaders, and removing post-processing effects like fog. Finally, users can lower the resolution of the scene, which typically scales with GPU performance.
+- Web applications tend to be CPU limited - the browser adds security measures to ensure that WebGL and automatic memory management can't be used to run malicious code. This adds some overhead to 3D web applications compared to native applications, making it more important to optimize CPU performance. Rendering performance is largely the same compared to an OpenGL application.
+- Understand how draw calls impact performance - CPU performance scales with the number of draw calls that occur in each frame. A draw call is a command that the engine sends to the GPU telling it to a draw a series of triangles or pixels. This operation happens quickly on the GPU, but is slow on the CPU, making it advantageous to reduce the number of draw calls.
+- Reuse materials and merge meshes wherever possible.
+- Leverage GPU instancing and level of detail (LOD) systems.
+- Reduce scene complexity - reduce the mesh count, render animations at lower framerates, remove transparency and reflections.
+- Reduce visual fidelity - lowering mesh and texture resolution, reduce the number of dynamic lights, simplify and remove post-processing effects, lower the output resolution.
 
 ### Select the best engine for the experience
 
 **Different web engines are well-suited for different types of experiences**. While some native engines, like Unity, allow building experiences for the web, some developers may prefer to use an engine built specifically for the web.
 
-- Developer experience matters: developers should use an engine that they enjoy developing in. If you're already comfortable with Unity, then it makes sense to continue with that engine. If you're looking to jump into JavaScript development, but still want an editor, PlayCanvas might be the right choice. For programming and rendering specialists, Three.js and Babylon provide the opportunity to build up a 3D framework from scratch, or to grab one off the shelf from the extensive communities.
-- Be careful with file size: Without optimization, fully-featured C++ engines like Unity can have much larger application sizes than JavaScript engines like Babylon.js, Three.js, and PlayCanvas. If you don't need all of the features of Unity, using a javascript-based engine may make bundle size optimization easier. Users on mobile devices typically prefer smaller app sizes, as they may be on a cellular network.
-- Device support: Web browsers are designed to support a wide range of devices, so developers generally do not need to worry about mobile and desktop rendering support. If you plan to support mobile devices, some engines, like Unity and PlayCanvas, support touch controls out of the box, while for engines like Three.js, you may need to use a third-party solution or touch controls yourself. If you plan to support XR, make sure your chosen engine has WebXR support.
+- Developer experience matters - developers should use an engine that suits their strengths. If you're already comfortable with Unity, then continue with that engine. If you're looking to jump into JavaScript development, but still want an editor, PlayCanvas might be the right choice. For programming specialists, Three.js and Babylon.js provide more flexibility.
+- Be careful with file size - Without optimization, fully-featured C++ engines like Unity can have much larger application sizes than JavaScript engines like Babylon.js, Three.js, and PlayCanvas. If you don't need all of the features of Unity, using a javascript-based engine may make bundle size optimization easier. Users on mobile devices typically prefer smaller app sizes, as they may be on a cellular network.
+- Device support - If you plan to support mobile devices, some engines, like Unity and PlayCanvas, support touch controls out of the box, while for engines like Three.js, you may need to use a third-party solution or touch controls yourself. If you plan to support XR, make sure your chosen engine has WebXR support.
 
 ## The Six Characteristics of an Optimized Experience
 
