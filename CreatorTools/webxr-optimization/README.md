@@ -33,7 +33,7 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 
 ### Load in fast
 
-**Users expect web experiences to load more quickly than native experiences**
+**Users expect web experiences to load more quickly than native experiences**. Native applications are downloaded ahead of launch, making it much easier to achieve fast loading times. Web applications must achieve better launch times while downloading assets after launch.
 
 - Keep assets small - users have to download assets over their network on each page load. Keeping assets small makes your experience accessible to users with slower internet speeds and speeds up the loading time.
 - Load in assets as you go - one benefit of the browser is that assets can be continuously fetched over the network. Rather than loading everything in at once, only download it when you need it.
@@ -41,7 +41,7 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 
 ### Expect cross-platform use
 
-**The same build runs across mobile, desktop, and XR platforms**
+**The same build runs across mobile, desktop, and XR platforms**. Unlike native applications, where a separate build must be created for each platform, only one build is generated for the web. This simplifies deployment, but performance tuning must happen at runtime.
 
 - Set performance settings on launch - web users expect that the default graphics settings will perform well on launch. Use lower graphics settings on mobile and XR than on desktop.
 - Scale performance as you go - there is a large variance of 3D performance within device classes; a mobile user could be running on the latest iPhone or a decade-old budget phone. Track performance metrics throughout the app runtime, and scale graphics settings up or down according to the device's abilities.
@@ -50,7 +50,7 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 
 ### Optimize scenes for the browser
 
-**Developers must tailor their experience towards running in a WebGL context**
+**Developers must tailor their experience towards running in a WebGL context**. The browser adds some CPU overhead compared to native apps to ensure the security of WebGL experiences.
 
 - Understand how draw calls impact performance - the CPU performance of a scene typically scales with the number of draw calls that occur in each frame. A draw call is a command that the engine sends to the GPU telling it to a draw a series of triangles or pixels. This operation happens very quickly on the GPU, but is very slow on the CPU, making it advantageous to batch draw calls together or strip them out entirely.
 - Reuse materials and merge static meshes - By leveraging atlas textures and texture arrays, a single material can be used across multiple meshes. This helps to batch draw calls, which typically scale with the number of meshes and materials in the scene. If a mesh does not move in the scene, it can be combined with other static meshes and materials into a single super-mesh that renders in a single draw call.
@@ -60,7 +60,7 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 
 ### Select the best engine for the experience
 
-**Different web engines are well-suited for different types of experiences**
+**Different web engines are well-suited for different types of experiences**. While some native engines, like Unity, allow building experiences for the web, some developers may prefer to use an engine built specifically for the web.
 
 - Developer experience matters: developers should use an engine that they enjoy developing in. If you're already comfortable with Unity, then it makes sense to continue with that engine. If you're looking to jump into JavaScript development, but still want an editor, PlayCanvas might be the right choice. For programming and rendering specialists, Three.js and Babylon provide the opportunity to build up a 3D framework from scratch, or to grab one off the shelf from the extensive communities.
 - Be careful with file size: Without optimization, fully-featured C++ engines like Unity can have much larger application sizes than JavaScript engines like Babylon.js, Three.js, and PlayCanvas. If you don't need all of the features of Unity, using a javascript-based engine may make bundle size optimization easier. Users on mobile devices typically prefer smaller app sizes, as they may be on a cellular network.
