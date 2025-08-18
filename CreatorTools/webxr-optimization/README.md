@@ -84,6 +84,12 @@ Mobile:
 
 This abstracts away complexities like pose estimation and scene understanding. Major 3D rendering engines like [Unity](https://docs.unity3d.com/6000.1/Documentation/Manual/webgl.html), [Three.js](https://threejs.org/manual/#en/webxr-basics), [PlayCanvas](https://developer.playcanvas.com/user-manual/xr/using-webxr/), and [Babylon.js](https://doc.babylonjs.com/features/featuresDeepDive/webXR/introToWebXR) directly integrate the WebXR API, making it simple to convert a flat 3D experience into an immersive 3D experience. However, while it is easy to make a functional immersive experience, it is challenging to make an experience that performs well on typical XR hardware in web browsers. We will investigate the unique challenges of developing for XR and developing for web browsers in the next two sections.
 
+## Optimizing 3D for the Web vs native platforms
+
+## What Does an Optimized 3D Experience Look Like?
+
+------
+
 ## XR Performance Constraints
 
 {% hint style="warning" %}
