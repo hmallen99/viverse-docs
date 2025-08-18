@@ -11,19 +11,19 @@ VIVERSE experiences run in web browsers. This allows 3D experiences to securely 
 
 ### Reach millions of users instantly
 
-An estimated **3 billion people** have access to a 3D-capable web browser and high-speed internet connection:
+An estimated **3 billion people** have access to a 3D-capable web browser and high-speed internet connection [[0](https://datareportal.com/reports/digital-2025-global-overview-report), [1](https://ngital.com/bangladesh-internet-penetration-2025-data-insights/), [2](https://africa.businessinsider.com/local/lifestyle/african-countries-with-the-largest-internet-population-in-2025/871gpnf), [3](https://www.itu.int/itu-d/reports/statistics/2024/11/10/ff24-internet-use/), [4](https://datareportal.com/reports/digital-2025-sub-section-accelerated-access)]:
 
 <figure><img src=".gitbook/assets/3D Capable Demographics.png" alt="" width="375"><figcaption><p>Population of 3D Capable Users</p></figcaption></figure>
 
 ### Launch on any device with a 3D-compatible web browser
 
-3D web apps reach phones, desktop computers, laptop computers, and mixed reality (XR) headsets via the same URL. The vast majority of internet browsing happens on 3D-capable browsers (Chrome, Edge, Firefox, and Safari) running on 3D-capable operating systems (Android, iOS, OSX, Windows).
+3D web apps reach phones, desktop computers, laptop computers, and mixed reality (XR) headsets via the same URL. The vast majority of internet browsing happens on 3D-capable browsers (Chrome, Edge, Firefox, and Safari) [[5](https://gs.statcounter.com/browser-market-share)] running on 3D-capable operating systems (Android, iOS, OSX, Windows) [[6](https://www.gsma.com/r/wp-content/uploads/2024/10/The-State-of-Mobile-Internet-Connectivity-Report-2024.pdf)].
 
 <figure><img src=".gitbook/assets/Browser Demographics.png" alt="" width="375"><figcaption><p>Browser Demographics</p></figcaption></figure>
 
 <figure><img src=".gitbook/assets/OS Demographics.png" alt="" width="375"><figcaption><p>Operating System Demographics</p></figcaption></figure>
 
-An estimated 95% of browsers in use support 3D experiences via the WebGL API:
+An estimated 99% of browsers in use support 3D experiences via the WebGL API [[7](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API#api.webgl2renderingcontext)]:
 
 <figure><img src=".gitbook/assets/WebGL Support.png" alt="" width="375"><figcaption><p>WebGL Support Across Devices</p></figcaption></figure>
 
@@ -33,7 +33,7 @@ The [web’s](https://developer.mozilla.org/en-US/docs/Web/Security) application
 
 ### The same standards for everyone
 
-WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized by mature standards bodies and implemented across most major web browser engines. There is no store gatekeeping compared to native platforms.
+APIs and technologies like [WebGL](https://registry.khronos.org/webgl/specs/latest/2.0/), [WebGPU](https://www.w3.org/TR/webgpu/), [WebXR](https://www.w3.org/TR/webxr/), [WebAssembly](https://www.w3.org/groups/wg/wasm/) (WASM), and [CSS](https://www.w3.org/Style/CSS/), and JavaScript are standardized by mature standards bodies and implemented across most major web browser engines. There is no store gatekeeping compared to native platforms.
 
 ## Optimizing 3D experiences for the Web vs native platforms
 
@@ -60,8 +60,8 @@ The core principles of game development are the same across web and native, but 
 
 **Developers must tailor their experience towards running in a WebGL context**. The browser adds some CPU overhead compared to native apps to ensure the security of WebGL experiences.
 
-- Web applications tend to be CPU limited - the browser adds security measures to ensure that WebGL and automatic memory management can't be used to run malicious code. This adds some overhead to 3D web applications compared to native applications, making it more important to optimize CPU performance. Rendering performance is largely the same compared to an OpenGL application.
-- Understand how draw calls impact performance - CPU performance scales with the number of draw calls that occur in each frame. A draw call is a command that the engine sends to the GPU telling it to a draw a series of triangles or pixels. This operation happens quickly on the GPU, but is slow on the CPU, making it advantageous to reduce the number of draw calls.
+- Account for WebGL execution overhead - the browser adds security measures to ensure that APIs like [WebGL](https://registry.khronos.org/webgl/specs/1.0/#ATTRIBS_AND_RANGE_CHECKING) can't be used to run malicious code. This adds some CPU overhead to 3D web applications compared to native applications, giving slightly less frame time to 3D logic. GPU rendering performance is largely the same [compared to an OpenGL application](https://docs.unity3d.com/6000.2/Documentation/Manual/webgl-performance.html).
+- Understand how [draw calls](https://howik.com/understanding-draw-calls) impact performance - CPU performance scales with the number of draw calls that occur in each frame. A draw call is a command that the engine sends to the GPU telling it to a draw a series of triangles or pixels. This operation happens quickly on the GPU, but is slow on the CPU, making it advantageous to reduce the number of draw calls.
 - Reuse materials and merge meshes wherever possible.
 - Leverage GPU instancing and level of detail (LOD) systems.
 - Reduce scene complexity - reduce the mesh count, render animations at lower framerates, remove transparency and reflections.
@@ -69,8 +69,9 @@ The core principles of game development are the same across web and native, but 
 
 ### Select the best engine for the experience
 
-**Different web engines are well-suited for different types of experiences**. While some native engines, like Unity, allow building experiences for the web, some developers may prefer to use an engine built specifically for the web.
+**Different web engines are well-suited for different types of experiences**. There are numerous feature-packed 3D rendering engines for the web, like [PlayCanvas](https://playcanvas.com/), [Unity](https://docs.unity3d.com/6000.2/Documentation/Manual/webgl.html), [Three.js](https://threejs.org/), and [Babylon.js](https://www.babylonjs.com/). Each engine has different strengths and weaknesses. Here are some key things to consider when deciding:
 
+- Double-check the supported features - Built-in engine features generally perform better than homebrewed solutions, since they can be tested and iterated on by a large developer base. If you need features like rigid-body physics or photorealistic lighting, it could be better to develop in an engine that supports them by default, like Unity.
 - Developer experience matters - developers should use an engine that suits their strengths. If you're already comfortable with Unity, then continue with that engine. If you're looking to jump into JavaScript development, but still want an editor, PlayCanvas might be the right choice. For programming specialists, Three.js and Babylon.js provide more flexibility.
 - Be careful with file size - Without optimization, fully-featured C++ engines like Unity can have much larger application sizes than JavaScript engines like Babylon.js, Three.js, and PlayCanvas. If you don't need all of the features of Unity, using a javascript-based engine may make bundle size optimization easier. Users on mobile devices typically prefer smaller app sizes, as they may be on a cellular network.
 - Device support - If you plan to support mobile devices, some engines, like Unity and PlayCanvas, support touch controls out of the box, while for engines like Three.js, you may need to use a third-party solution or touch controls yourself. If you plan to support XR, make sure your chosen engine has WebXR support.
