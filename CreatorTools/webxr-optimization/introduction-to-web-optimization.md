@@ -35,7 +35,7 @@ The [web’s](https://developer.mozilla.org/en-US/docs/Web/Security) application
 
 APIs and technologies like [WebGL](https://registry.khronos.org/webgl/specs/latest/2.0/), [WebGPU](https://www.w3.org/TR/webgpu/), [WebXR](https://www.w3.org/TR/webxr/), [WebAssembly](https://www.w3.org/groups/wg/wasm/) (WASM), and [CSS](https://www.w3.org/Style/CSS/), and JavaScript are standardized by mature standards bodies and implemented across most major web browser engines. There is no store gatekeeping compared to native platforms.
 
-## Optimizing 3D experiences for the Web vs native platforms
+## Optimizing 3D experiences for the web vs native platforms
 
 The core principles of game development are the same across web and native, but there are key optimizations to make on the web platform to ensure that users have a great first impression and keep coming back:
 
@@ -103,3 +103,10 @@ In a responsive experience, the scene updates immediately in response to a user'
 ### Scalable
 
 Regardless of whether an experience runs in a mobile browser or desktop browser, users expect performance comparable to native applications on that platform. A scalable experience tunes its performance to the device it's running on.
+
+## Selected Optimized VIVERSE Experiences
+
+- [Alfi's Adventures](https://worlds.viverse.com/EcxNxwe) - Fine-tuned performance across mobile and desktop platforms.
+- [To the Limbs](https://worlds.viverse.com/TkZWCbJ) - An interactive music video that leverages progressive loading techniques to create a stable experience.
+- [Pet Rescue](https://worlds.viverse.com/MMuLWbE) - An expansive world with intuitive controls on multiple devices.
+- [MetaCities: Poolside Hangout](https://worlds.viverse.com/xUKt6dt) - Impressive lighting and water effects running with smooth and stable performance.
