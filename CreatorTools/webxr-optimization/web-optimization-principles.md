@@ -1,4 +1,4 @@
-# Key Optimization Standards
+# The Principles of Web Optimization
 
 ## The Basics of 3D in the Browser
 
