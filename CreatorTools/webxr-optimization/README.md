@@ -27,7 +27,13 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 
 ## By the Numbers: 3D Web Availability
 
-# TODO: Insert Graphic
+<figure><img src=".gitbook/assets/3D Capable Demographics.png" alt="" width="375"><figcaption><p>Population of 3D Capable Users</p></figcaption></figure>
+
+<figure><img src=".gitbook/assets/OS Demographics.png" alt="" width="375"><figcaption><p>Operating System Demographics</p></figcaption></figure>
+
+<figure><img src=".gitbook/assets/Browser Demographics.png" alt="" width="375"><figcaption><p>Browser Demographics</p></figcaption></figure>
+
+<figure><img src=".gitbook/assets/WebGL Support.png" alt="" width="375"><figcaption><p>WebGL Support Across Devices</p></figcaption></figure>
 
 ## Optimizing 3D experiences for the Web vs native platforms
 
@@ -375,3 +381,5 @@ If the application is GPU bound, i.e. the application spends a significant porti
 [25] https://datareportal.com/reports/digital-2025-sub-section-accelerated-access
 
 [26] https://www.gsma.com/r/wp-content/uploads/2024/10/The-State-of-Mobile-Internet-Connectivity-Report-2024.pdf
+
+[27] https://gs.statcounter.com/os-market-share/
