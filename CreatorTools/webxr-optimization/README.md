@@ -66,15 +66,33 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 - Be careful with file size: Without optimization, fully-featured C++ engines like Unity can have much larger application sizes than JavaScript engines like Babylon.js, Three.js, and PlayCanvas. If you don't need all of the features of Unity, using a javascript-based engine may make bundle size optimization easier. Users on mobile devices typically prefer smaller app sizes, as they may be on a cellular network.
 - Device support: Web browsers are designed to support a wide range of devices, so developers generally do not need to worry about mobile and desktop rendering support. If you plan to support mobile devices, some engines, like Unity and PlayCanvas, support touch controls out of the box, while for engines like Three.js, you may need to use a third-party solution or touch controls yourself. If you plan to support XR, make sure your chosen engine has WebXR support.
 
-## What Does an Optimized 3D Experience Look Like?
+## The Six Characteristics of an Optimized Experience
 
-### Performance scales with the device
+Many developers implicitly understand when an experience is properly optimized, but may have a hard time describing the exact characteristics that constitute a well-optimized scene and the numbers that back up those characteristics. Here are six characteristics that make up a well-optimized experience:
 
-### Experiences load in quickly
+### Fast-loading
 
-### Smooth gameplay and interactions
+Extensive research shows that users are much more likely to return to applications that load quickly. In a well-optimized experience, users can expect to see a loading indicator in milliseconds and interact with the scene in seconds.
 
-### No hitching or dropped frames
+### Smooth
+
+Smoothness is the characteristic that users typically associate with performance. Smoothness is defined by how a scene looks in motion; in a smooth scene, the user should not be able to perceive the gaps in time between each image, instead perceiving a continuous stream of imagery.
+
+### Stable
+
+A stable scene produces new images at a consistent rate, regardless of frequency. When there is a random, large gap between new images, the user's immersion is broken, like when a video buffers.
+
+### Legible
+
+A scene may be smooth and stable, but this does not matter if individual elements in the scene cannot be interpreted. Users must be able to read all UI elements and determine what models are in motion. This characteristic is related to the resolution of the screen and texture, as well as any aliasing, or blurriness, in the scene.
+
+### Responsive
+
+In a responsive experience, the scene updates immediately in response to a user's input. Users expect the camera to track directly with inputs, and can even experience nausea if there is too much latency. Beyond the camera movement, users expect UI elements to respond to hover and click interactions and player animations to trigger when a button is pressed. It is very easy to break immersion when an experience is not responsive.
+
+### Scalable
+
+Regardless of whether an experience runs in a mobile browser or desktop browser, users expect performance comparable to native applications on that platform. A scalable experience tunes its performance to the device it's running on.
 
 ------
 
