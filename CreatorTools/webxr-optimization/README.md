@@ -1,11 +1,11 @@
 ---
-description: Learn about optimizing 3D experiences for WebXR
+description: A gentle introduction to optimizing 3D experiences for the Web
 ---
 
-# Optimizing 3D WebXR Experiences
+# Introduction to Optimizing for the Web
 
 ***
-VIVERSE experiences run in web browsers. This allows 3D experiences to securely run on almost any hardware, as long as the web browser supports [the WebXR standard](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API/Fundamentals). This documentation details the challenges and benefits of developing 3D experiences for WebXR.
+VIVERSE experiences run in web browsers. This allows 3D experiences to securely run on almost any hardware, as long as the web browser supports [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API). This documentation details the benefits of developing for the web, as well as some key differences with traditional game development and 3D software development.
 
 ## Why Build for the Web?
 
@@ -22,6 +22,61 @@ WebGPU/WebGL 2, WebXR, WebAssembly (WASM), CSS, and JavaScript are standardized 
 ### Secure By Default
 
 The [web’s](https://developer.mozilla.org/en-US/docs/Web/Security) application sandbox, HTTPS, and permissions model let you consume powerful graphics, XR, and platform features with user consent and origin isolation—without building and shipping native binaries per operating system and hardware combination.
+
+## By the Numbers: Potential User Reach for Modern 3D Web (Early 2025)
+
+### Internet User Demographics
+
+**Global internet users**:
+
+Experts estimate that there is a Total Addressable Market (TAM) of 5.56 billion people online today [\[17\]](https://datareportal.com/reports/digital-2025-global-overview-report).
+
+**Emerging Markets**
+
+The following markets have lower internet speeds, but are expected to rapidly grow in the coming decade:
+
+- **South Asia**: 1.03 billion people online [\[18\]](https://ngital.com/bangladesh-internet-penetration-2025-data-insights/)
+- **Sub-Saharan Africa**: 350 million people online [\[19\]](https://africa.businessinsider.com/local/lifestyle/african-countries-with-the-largest-internet-population-in-2025/871gpnf) [\[20\]](https://www.itu.int/itu-d/reports/statistics/2024/11/10/ff24-internet-use/)
+
+**Salable Addressable Market**
+
+Of the remaining estimated 4.15 billion people with higher speed internet, an estimated 70% have access to a smartphone capable of rendering high-end 3D web experiences, forming an addressable market of **3 billion users**.
+
+### Browser Demographics for 3D Web
+
+Browser usage demographics heavily favor a WebGPU/WebGL 2 strategy tuned for Chromium first, with good WebGL2 fallback for Safari.
+
+
+**Global Browser Share** (July 2025) [\[22\]](https://gs.statcounter.com/browser-market-share)
+
+Overall:
+- Chrome ~67.9%,
+- Safari ~16.2%,
+- Edge ~5.1%,
+- Firefox ~2.5%
+
+Mobile:
+- Chrome ~67.3%
+- Safari ~22.4%
+
+**WebGL 2 Support**
+
+- 99% of iOS devices (going back to iOS 15) support WebGL 2 [\[21\]](https://telemetrydeck.com/survey/apple/iOS/majorSystemVersions/).
+- Android Chromium WebGL2 support dates back to 2017 [\[23\]](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API#api.webgl2renderingcontext)
+- In conjunction, a very conservative 90% of the smartphone market supports WebGL 2.
+
+**WebGPU Support**
+
+- Enabled by default as of Chrome 121 released in 2024 [\[24\]](https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API#specifications)
+- Experimental support in Safari
+- Enabled by default on desktop Chrome as of 2023
+- Together, this suggests that 67% of the market has WebGPU access, with more coming online soon with upcoming Safari and FireFox support.
+
+
+### Internet Bandwidth Readiness
+
+- Mobile speeds are now “3D‑capable” for most users: Global median mobile downlink is ~61.5 Mbps (2025). This is enough for streamed assets, compressed textures, and progressive loading strategies on the open web [\[25\]](https://datareportal.com/reports/digital-2025-sub-section-accelerated-access).
+- Coverage gaps remain concentrated in the excluded regions: Usage gaps are largest in Sub‑Saharan Africa and South Asia [\[26\]](https://www.gsma.com/r/wp-content/uploads/2024/10/The-State-of-Mobile-Internet-Connectivity-Report-2024.pdf)
 
 ## The Challenges of Optimizing for WebXR
 
@@ -174,60 +229,7 @@ If the application is GPU bound, i.e. the application spends a significant porti
 
 
 
-## By the Numbers: Potential User Reach for Modern 3D Web (Early 2025)
 
-### Internet User Demographics
-
-**Global internet users**:
-
-Experts estimate that there is a Total Addressable Market (TAM) of 5.56 billion people online today [\[17\]](https://datareportal.com/reports/digital-2025-global-overview-report).
-
-**Emerging Markets**
-
-The following markets have lower internet speeds, but are expected to rapidly grow in the coming decade:
-
-- **South Asia**: 1.03 billion people online [\[18\]](https://ngital.com/bangladesh-internet-penetration-2025-data-insights/)
-- **Sub-Saharan Africa**: 350 million people online [\[19\]](https://africa.businessinsider.com/local/lifestyle/african-countries-with-the-largest-internet-population-in-2025/871gpnf) [\[20\]](https://www.itu.int/itu-d/reports/statistics/2024/11/10/ff24-internet-use/)
-
-**Salable Addressable Market**
-
-Of the remaining estimated 4.15 billion people with higher speed internet, an estimated 70% have access to a smartphone capable of rendering high-end 3D web experiences, forming an addressable market of **3 billion users**.
-
-### Browser Demographics for 3D Web
-
-Browser usage demographics heavily favor a WebGPU/WebGL 2 strategy tuned for Chromium first, with good WebGL2 fallback for Safari.
-
-
-**Global Browser Share** (July 2025) [\[22\]](https://gs.statcounter.com/browser-market-share)
-
-Overall:
-- Chrome ~67.9%,
-- Safari ~16.2%,
-- Edge ~5.1%,
-- Firefox ~2.5%
-
-Mobile:
-- Chrome ~67.3%
-- Safari ~22.4%
-
-**WebGL 2 Support**
-
-- 99% of iOS devices (going back to iOS 15) support WebGL 2 [\[21\]](https://telemetrydeck.com/survey/apple/iOS/majorSystemVersions/).
-- Android Chromium WebGL2 support dates back to 2017 [\[23\]](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API#api.webgl2renderingcontext)
-- In conjunction, a very conservative 90% of the smartphone market supports WebGL 2.
-
-**WebGPU Support**
-
-- Enabled by default as of Chrome 121 released in 2024 [\[24\]](https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API#specifications)
-- Experimental support in Safari
-- Enabled by default on desktop Chrome as of 2023
-- Together, this suggests that 67% of the market has WebGPU access, with more coming online soon with upcoming Safari and FireFox support.
-
-
-### Internet Bandwidth Readiness
-
-- Mobile speeds are now “3D‑capable” for most users: Global median mobile downlink is ~61.5 Mbps (2025). This is enough for streamed assets, compressed textures, and progressive loading strategies on the open web [\[25\]](https://datareportal.com/reports/digital-2025-sub-section-accelerated-access).
-- Coverage gaps remain concentrated in the excluded regions: Usage gaps are largest in Sub‑Saharan Africa and South Asia [\[26\]](https://www.gsma.com/r/wp-content/uploads/2024/10/The-State-of-Mobile-Internet-Connectivity-Report-2024.pdf)
 
 ## Sources
 
