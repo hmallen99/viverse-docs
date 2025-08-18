@@ -9,6 +9,36 @@ VIVERSE experiences run in web browsers. This allows 3D experiences to securely 
 
 ## Why Build for the Web?
 
+### Reach millions of users instantly
+
+### Launch on any device with a web browser
+
+### Secure by default
+
+### The same standards for everyone
+
+## Optimizing 3D experiences for the Web vs native platforms
+
+### Load in fast
+
+### Expect cross-platform use
+
+### Select the best engine for the experience
+
+## What Does an Optimized 3D Experience Look Like?
+
+### Performance scales with the device
+
+### Experiences load in quickly
+
+### Smooth gameplay and interactions
+
+### No hitching or dropped frames
+
+------
+
+## Why Build for the Web?
+
 When developing a mixed reality (XR) experience, developers can choose to build a native application or a web-based application. In either case, it is possible to build immersive, detailed experiences. VIVERSE prefers the web for the following benefits:
 
 ### Portability Across Devices
@@ -83,12 +113,6 @@ Mobile:
 [WebXR](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API/Fundamentals) is an API that provides developers with the necessary functionality to interface with XR headsets and glasses from web browsers. This functionality includes rendering and composing 3D content on an XR headset, sensing the movement of the headset and other inputs in the real world, and updating imagery according to the real world data.
 
 This abstracts away complexities like pose estimation and scene understanding. Major 3D rendering engines like [Unity](https://docs.unity3d.com/6000.1/Documentation/Manual/webgl.html), [Three.js](https://threejs.org/manual/#en/webxr-basics), [PlayCanvas](https://developer.playcanvas.com/user-manual/xr/using-webxr/), and [Babylon.js](https://doc.babylonjs.com/features/featuresDeepDive/webXR/introToWebXR) directly integrate the WebXR API, making it simple to convert a flat 3D experience into an immersive 3D experience. However, while it is easy to make a functional immersive experience, it is challenging to make an experience that performs well on typical XR hardware in web browsers. We will investigate the unique challenges of developing for XR and developing for web browsers in the next two sections.
-
-## Optimizing 3D for the Web vs native platforms
-
-## What Does an Optimized 3D Experience Look Like?
-
-------
 
 ## XR Performance Constraints
 
