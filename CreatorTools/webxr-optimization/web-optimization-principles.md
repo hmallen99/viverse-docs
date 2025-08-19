@@ -19,18 +19,18 @@ Modern web browsers, such as Safari, Chrome, Firefox, and Edge, implement a set 
 
 ### Drawing Triangles in the Browser
 
-Graphics APIs like WebGL and WebGPU are used to construct a **[rendering pipeline](https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview)**, a program that defines the steps that the underlying native Graphics API (OpenGL, Vulkan, Metal, DirectX) must take when rendering objects. At a *very* high level, this consists of:
+Graphics APIs like WebGL and WebGPU are used to construct a **[rendering pipeline](https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview)**, a program that defines the steps that the underlying native Graphics API (OpenGL, Vulkan, Metal, DirectX) must take when rendering objects. At a _very_ high level, this consists of:
 
 1. Vertex processing. 3D scenes consist of many points in 3D space, referred to as vertices, which compose into triangles, which in turn compose into more complex shapes. In the first step of the rendering pipeline, each vertex in an array of vertices are processed by a "vertex shader", a small program that determines the position and color of a particular vertex given some input properties.
 2. Primitive Assembly and Clipping. Each vertex may be part of one or more primitives (point, line, or triangle) in the scene. At this stage, the pipeline generates an array of primitives from the vertices and clips all primitives that extend outside of the camera view.
-3. Rasterization. The processed primitives are then *rasterized*, or converted into a sequence of fragments. Whereas primitives represent a shape in 3D space, fragments represent the projection of 3D shapes into 2D space. Imagine taking a picture on a digital camera; the 3D scene you are capturing is recorded by a series of sensors, which record light information from 3D space. A fragment loosely corresponds to one of these sensors; it consists of 2D position data for a point and data interpolated from the vertices that contribute to that point. This fragment data is output to the next stage.
+3. Rasterization. The processed primitives are then _rasterized_, or converted into a sequence of fragments. Whereas primitives represent a shape in 3D space, fragments represent the projection of 3D shapes into 2D space. Imagine taking a picture on a digital camera; the 3D scene you are capturing is recorded by a series of sensors, which record light information from 3D space. A fragment loosely corresponds to one of these sensors; it consists of 2D position data for a point and data interpolated from the vertices that contribute to that point. This fragment data is output to the next stage.
 4. Fragment processing. Each fragment is processed by a fragment shader, which determines the final color of each value in the framebuffer.
 
 Consider the following example of a WebGL rendering pipeline, written in JavaScript, which draws a multi-colored triangle to the screen:
 
 ```js
-const canvas = document.getElementById('myCanvas');
-const gl = canvas.getContext('webgl');
+const canvas = document.getElementById("myCanvas");
+const gl = canvas.getContext("webgl");
 
 // Determines the position and color of each vertex
 const vertexShaderSource = `
@@ -75,10 +75,9 @@ gl.useProgram(shaderProgram);
 
 // Allocate buffers to pass to the rendering pipeline
 const vertices = [
-//  x     y     z     r     g     b
-    0.0,  0.5,  0.0,  1.0,  0.0,  0.0,
-   -0.5, -0.5,  0.0,  0.0,  1.0,  0.0,
-    0.5, -0.5,  0.0,  0.0,  0.0,  1.0,
+  //  x     y     z     r     g     b
+  0.0, 0.5, 0.0, 1.0, 0.0, 0.0, -0.5, -0.5, 0.0, 0.0, 1.0, 0.0, 0.5, -0.5, 0.0, 0.0,
+  0.0, 1.0,
 ];
 
 const vertexBuffer = gl.createBuffer();
@@ -86,12 +85,19 @@ gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
 var FSIZE = vertices.BYTES_PER_ELEMENT;
-var positionAttribute = gl.getAttribLocation(shaderProgram, 'position');
+var positionAttribute = gl.getAttribLocation(shaderProgram, "position");
 gl.vertexAttribPointer(positionAttribute, 3, gl.FLOAT, false, FSIZE * 6, 0);
 gl.enableVertexAttribArray(positionAttribute);
 
-var colorAttribute = gl.getAttribLocation(shaderProgram, 'color');
-gl.vertexAttribPointer(colorAttribute, 3, gl.FLOAT, false, FSIZE * 6, FSIZE * 3);
+var colorAttribute = gl.getAttribLocation(shaderProgram, "color");
+gl.vertexAttribPointer(
+  colorAttribute,
+  3,
+  gl.FLOAT,
+  false,
+  FSIZE * 6,
+  FSIZE * 3
+);
 gl.enableVertexAttribArray(colorAttribute);
 
 // Draw to the canvas
@@ -102,9 +108,78 @@ gl.drawArrays(gl.TRIANGLES, 0, 3);
 
 ### Core Engine Abstractions: Meshes, Materials, Cameras, and Lights
 
-### Programming Language Support in Web Rendering Engines
+Rendering API code is often regarded as verbose and unapproachable, so some abstractions are built on top to make things easier. At the highest level of abstraction is the **scene**, a tree-like data structure that defines the hierarchy of elements that are rendered to the screen. The scene is composed of **meshes**, collections of triangles that from a shape, and have some position, scale, and rotation in the world. Each mesh has a **material**, which defines how the mesh responds to **lights** in the scene. Materials may render just a solid color, can render a **texture**, or can imitate real-life material properties, like wood or skin. A **camera** renders the scene from a particular perspective, which is then output to the browser window via the Canvas API.
 
-For historical reasons and security reasons, the only officially supported browser language is JavaScript. To execute non-JavaScript code directly in the browser, it must be compiled to a binary format known as [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly) (refer to the WebAssembly section below for more details), where it can be directly executed by a virtual machine in the browser.
+A typical rendering pipeline composes abstractions in the [following way](https://toji.dev/webgpu-gltf-case-study/#rendering-with-webgl):
+
+```js
+// Heavily-abstracted render loop. This runs every frame.
+function render(scene) {
+  for (let material of scene.materials) {
+    // Initialize Shaders using gl.createShader(), gl.compileShader(), etc.
+    InitializeShadersAndTextures(material, scene.camera, scene.lights);
+
+    for (let mesh of scene.meshes.filter(
+      (mesh) => mesh.material === material
+    )) {
+      // Create a WebGL buffer for the mesh vertices using gl.createBuffer()
+      InitializeMeshBuffers(mesh);
+
+      for (let instance of mesh.instances.values()) {
+        // For each instance of the mesh, set the appropriate color and position
+        SetInstanceValues(instance);
+
+        // Render the instance to the screen using gl.drawArrays()
+        Draw();
+      }
+    }
+  }
+
+  requestAnimationFrame(function () {
+    render(scene);
+  });
+}
+
+// Example of initializing a scene and starting the render loop
+function runApp() {
+  const scene = engine.createScene();
+
+  const camera = scene.createCamera();
+  camera.position = { x: 0, y: 4, z: -15 };
+  camera.lookAt({ x: 0, y: 0, z: 0 });
+
+  const light = scene.createAreaLight();
+  light.color = { r: 1, g: 1, b: 1 };
+
+  const basicMaterial = scene.createStandardMaterial();
+  basicMaterial.color = { r: 1, g: 0, b: 0 };
+
+  const box = scene.createBox();
+  box.material = basicMaterial;
+
+  const boxInstance1 = box.createInstance();
+  boxInstance1.position = { x: 1, y: 1, z: 0 };
+  boxInstance1.scale = { x: 2, y: 1, z: 0 };
+
+  const boxInstance2 = box.createInstance();
+  boxInstance2.position = { x: -1, y: -1, z: 0 };
+
+  render(scene);
+}
+```
+
+### Responding to User Inputs in the Browser
+
+Generally, users need to interact with the program in some way. In a desktop first-person video game, for example, the camera moves forward, left, back, and right with the W, A, S, and D keys, respectively, and the the camera pans up, down, left, and right by moving the mouse in the respective direction. The browser exposes a few APIs to allow controlled access to the mouse, keyboard, touch, and gamepad events:
+
+- On mobile devices, the [Touch Events API](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events) is used to respond to swipe, tap, and multitap interactions.
+- On desktop computers, the [KeyboardEvent API](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent) and [MouseEvent API](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) provide functionality for responding to key strokes, mouse clicks, and mouse movements.
+- Developers can use the [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API) to detect when a controller is connected to a computer and determine the layout of the controller.
+- For XR devices, the [WebXR API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API) provides abstractions for handling headset movement and hand/gamepad inputs.
+
+### A Note On Programming Language Support in Web Rendering Engines
+
+For historical reasons and security reasons, the only officially supported browser language is [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript). To execute non-JavaScript code directly in the browser, it must be compiled to a binary format known as [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly), where it can be directly executed by a virtual machine in the browser.
 
 There are therefore two main approaches to building rendering engines for the web:
 
@@ -165,9 +240,10 @@ By default, rendering engines like Three.js, Babylon.js, Unity, and PlayCanvas u
 
 ### Memory Management in 3D Web Applications
 
-3D applications running in the browser can be very sensitive to JavaScript Garbage Collection (GC) pauses. [Garbage Collection](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)) is an automatic memory management technique used in many programming languages, including JavaScript. This technique helps avoid issues like memory leaks and dangling pointers, but has some performance overhead. When memory usage is high in a particular frame, the resulting garbage collection step will freeze the main frame until it completes. In WebXR, this freeze can result in dropped frames, affecting user experience. Although engines like Unity use garbage collection in C# scripting contexts [\[10\]](https://docs.unity3d.com/6000.1/Documentation/Manual/performance-garbage-collector.html), the underlying engine is written in C++, which can take advantage of manual memory management in native contexts. Engines written in JavaScript, like Three.js, do not have this advantage, and developers must be very careful about allocating memory and reusing resources like Vectors and Arrays.
+3D applications running in the browser can be very sensitive to JavaScript Garbage Collection (GC) pauses. [Garbage Collection](<https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)>) is an automatic memory management technique used in many programming languages, including JavaScript. This technique helps avoid issues like memory leaks and dangling pointers, but has some performance overhead. When memory usage is high in a particular frame, the resulting garbage collection step will freeze the main frame until it completes. In WebXR, this freeze can result in dropped frames, affecting user experience. Although engines like Unity use garbage collection in C# scripting contexts [\[10\]](https://docs.unity3d.com/6000.1/Documentation/Manual/performance-garbage-collector.html), the underlying engine is written in C++, which can take advantage of manual memory management in native contexts. Engines written in JavaScript, like Three.js, do not have this advantage, and developers must be very careful about allocating memory and reusing resources like Vectors and Arrays.
 
 ### App Startup Time
+
 Startup time is limited by network bandwidth in the browser. This contrasts with native apps, where assets and source code are typically downloaded on the initial install, or in explicit updates to the app. Refer to [Optimizing for the Web](../optimization.md) for more details on optimizing assets for the web.
 
 ### Optimizing for Mobile Devices
@@ -224,7 +300,8 @@ JavaScript-based engines like Three.js, Babylon.js, and PlayCanvas can leverage 
 
 First-party code that is not well-suited to JavaScript can be re-written in a language like C, C++, or Rust and compiled to Wasm using tools like [Emscripten](https://emscripten.org/).
 
-####  Limitations
+#### Limitations
+
 There are some limitations to Wasm in comparison to native code:
 
 - Startup Time: Like all web app source code, Wasm bytecode must be downloaded by the browser before it can begin running. This can result in worse startup time in comparison to native apps, where source is downloaded ahead of time.
