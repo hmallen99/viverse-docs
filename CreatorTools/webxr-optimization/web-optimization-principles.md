@@ -133,7 +133,31 @@ The choice of engine is not as clear-cut as performance vs. usability. Given the
 
 ## Quantifying the Characteristics of Good Optimization
 
+### Loading times
+
+### Smoothness
+
+### Stability
+
+### Legibility
+
+### Responsiveness
+
+### Scalability
+
 ## Target Metrics for Optimization
+
+### Average Framerate
+
+### Minimum Framerate
+
+### Time to First Paint
+
+### Time to First Interaction
+
+### Framebuffer Scaling
+
+### Input Latency
 
 ## The Challenges of Optimizing for the Browser
 
