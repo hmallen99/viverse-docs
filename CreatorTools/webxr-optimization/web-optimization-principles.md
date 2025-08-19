@@ -205,15 +205,73 @@ General WebGL and WebGPU tutorials:
 
 ### Loading times
 
+Core Metrics:
+- Time to First Paint (TTFP)
+- Time to First Interaction (TTFI)
+- Navigation Time
+
+Scene Metrics Affecting Loading Time:
+- Model and texture file sizes
+- Model and texture count
+
+External Factors Affecting Loading Time:
+- Network bandwidth
+- Device networking chipset
+- CPU clock speed
+
 ### Smoothness
+
+Core Metrics:
+- Average frames per second (FPS)
+- Average frame time
+
+Scene Metrics Affecting Smoothness:
+- Draw call count
+- Polygon count
+- Framebuffer resolution
+- Scripting time
+
+External Factors Affecting Loading Time:
+- CPU clock speed
+- GPU VRAM and clock speed
 
 ### Stability
 
+Core Metrics:
+- Maximum frame delta
+- 5th percentile FPS
+
+Scene Metrics Affecting Stability:
+- Shader compilation time
+- Maximum scripting time
+- Maximum mesh count
+
 ### Legibility
+
+Core Metrics:
+- Framebuffer resolution
+- Texture Size
+- Font Size
+
+Scene Characteristics Affecting Legibility:
+- Antialising (on/off)
+- Framebuffer Scale
 
 ### Responsiveness
 
+Core Metrics:
+- Input latency
+
 ### Scalability
+
+Core Metrics:
+- Mobile Device Average FPS
+- Mobile Device TTFI
+- Mobile Device 5th percentile FPS
+- Mobile Device framebuffer resolution
+
+External Factors Affecting Scalability:
+- Minimum supported hardware specifications
 
 ## Target Metrics for Optimization
 
