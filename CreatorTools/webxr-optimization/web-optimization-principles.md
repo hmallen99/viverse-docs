@@ -324,7 +324,22 @@ Startup time is limited by network bandwidth in the browser. This contrasts with
 
 ### Optimizing for Mobile Devices
 
+Web development is distinct from native development because the same build runs on all devices, meaning a single build must support mobile and desktop platforms. This presents the following challenges to developers:
+
+- Builds must scale performance automatically. This means that your application may need to provide multiple scene qualities that it can fall back to, and multiple asset configurations that can be selected from at runtime.
+- Mobile devices have less powerful hardware than desktop computers. This means that experiences that run at 60 FPS on desktop computers may require additional optimization to run on mobile phones at 60 FPS.
+- Mobile devices can have a wide range of screen sizes. This makes choosing texture size and font size more challenging, as a user on a tablet expects a different experience from a user on a phone. Developers must detect the window size and device pixel ratio at runtime to ensure that the correct texture sizes and font sizes are used.
+
 ### Optimizing for XR Devices
+
+The browser enables XR applications through the [WebXR API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API/Fundamentals), meaning that a mobile or desktop experience can run on an XR headset with a little additional work. Developing XR experiences is very rewarding, as it allows users to experience a level of immersion not afforded by flat displays. However, it may take a lot of work to properly optimize a 3D web build for WebXR. WebXR development places the following unique constraints on developers:
+
+- **Higher FPS Thresholds**: A good performance target is a [stable 72 frames per second](https://developers.meta.com/horizon/resources/vrc-quest-performance-1) (fps), with minimums of 60 fps. This contrasts with development for PC or Consoles, where 60+ fps is preferred, but users can comfortably play games at 30 fps.
+- **Higher Stability Requirements**: It is important to limit screen tearing and dropped frames, as desynchronizations in head tracking or dropped frames can cause nausea.
+- **Binocular Rendering**: XR experiences are more expesnive to render than flat 3D experiences. This is because the scene needs to be [rendered twice](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API/Rendering#the_optics_of_3d): once from the left eye and once from the right eye. While much of the rendering work can be shared (see: [multiview](https://developer.mozilla.org/en-US/docs/Web/API/OVR_multiview2)), there is unavoidable overhead associated with rendering for both eyes.
+- **Spatial Tracking Overhead**: In an immersive experience, some portion of each frame is dedicated to [updating the real-world position of the headset](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API/Spatial_tracking) and the control inputs. This is more expensive than reading inputs in a flat 3D experience, as the headset must multiplex signals from accelerometers, cameras, and other sensors to determine where the user is in the world. This real-world position must then be mapped to a position in the simulated world.
+- **Scene Understanding Overhead**: Some WebXR experiences allow interactions between objects in the simulated world and objects in the real world. For example, a virtual tennis ball could bounce off your actual floor. Performing this simulation is expensive, as the device must estimate a 3D collision geometry for the floor, again processing large amounts of sensor data in real time.
+- **Mobile-class Hardware**: Most XR headsets run on mobile chipsets like the [Qualcomm Snapdragon XR2 Gen 2](https://www.qualcomm.com/products/mobile/snapdragon/xr-vr-ar/snapdragon-xr2-gen-2-platform), which are typically less powerful than those found in desktops, consoles, and laptops (though there is a wide variance in all of these devices). This means that an experience that runs at a stable 60 fps on a mid-range laptop may run at a much lower framerate on an XR headset. It is recommended to [throttle your CPU](https://developer.chrome.com/docs/devtools/settings/throttling/) in your web browser while profiling performance.
 
 ## Optimization Strategies for the Web
 
