@@ -105,31 +105,7 @@ gl.drawArrays(gl.TRIANGLES, 0, 3);
 3. WebGL Fundamentals: https://webglfundamentals.org/
 4. WebGPU Fundamentals: https://webgpufundamentals.org/
 
-### Performance Differences between WebGL and Native Rendering APIs
 
-By default, rendering engines like Three.js, Babylon.js, Unity, and PlayCanvas use the [WebGL 2 API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API#webgl_2) to take advantage of hardware-accelerated graphics in the browser. WebGL 2 largely conforms to the Open GL ES 2.0 standard and dispatches commands to the GPU, meaning that the performance of a WebGL API call is very close to the corresponding native OpenGL call. However, there are some limitations to WebGL 2 in comparison to native graphics APIs:
-
-- **Dispatching Overhead**: There is [overhead when dispatching WebGL calls on the CPU](https://docs.unity3d.com/6000.3/Documentation/Manual/webgl-performance.html), as the WebGL API call must be translated into the correct native graphics API call. Further, the browser implements more security checks than native code to prevent things like [Out of Range Memory Accesses](https://www.khronos.org/webgl/wiki/Main%20Page/cms/security). This slower dispatching limits the number of draw calls that can be performed in the browser.
-- **Missing Modern Features**: Because WebGL is based on OpenGL ES 2.0, it lacks many features that modern graphics APIs like DirectX 12, Metal, and [Vulkan can provide](https://github.com/KhronosGroup/Vulkan-Samples/blob/main/samples/vulkan_basics.adoc), limiting the theoretical performance of an experience. The WebGPU browser API does support many of these features, but WebGPU support is still developing in most major Web engines, like [Three.js](https://github.com/mrdoob/three.js/issues/28968), [Babylon.js](https://doc.babylonjs.com/setup/support/webGPU/webGPUStatus/#features-not-working-because-not-implemented-yet), and [Unity](https://docs.unity3d.com/Manual/WebGPU.html).
-
-### Programming Language Support in 3D Web Applications
-
-For historical reasons and security reasons, the only officially supported browser language is JavaScript. To execute non-JavaScript code directly in the browser, it must be compiled to a binary format known as [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly) (refer to the WebAssembly section below for more details), where it can be directly executed by a virtual machine in the browser.
-
-There are therefore two main approaches to building rendering engines for the web:
-
-- Compiling an existing engine written in a low-level languages (e.g. C, C++, Rust) to WebAssembly. This approach is taken by engines like Unity, Godot, and Bevy.
-- Writing the engine entirely in JavaScript. This approach is used by engines like PlayCanvas, Three.js, and Babylon.js.
-
-Each approach has certain tradeoffs. With the WebAssembly approach, one challenge is compatibility. For example, automatic memory management is constrained in WebAssembly to maintain security, leading to potential [out-of-memory errors](https://docs.unity3d.com/6000.1/Documentation/Manual/webgl-memory.html) that may not occur in a native application. Another challenge is interfacing with the browser. [Browser APIs are generally not available to the WebAssembly runtime](https://webassembly.org/docs/web/); to interface with the browser, WebAssembly code must call a JavaScript function that then calls the corresponding browser API. Sending commands and data over this reflection layer can be expensive, negating some of the benefits of the generally faster WebAssembly code. However, when properly optimized, low-level code compiled to WebAssembly runs much faster than the equivalent JavaScript code, approaching native speeds.
-
-JavaScript-based engines come with some benefits outside of browser compatibility. Engine code can be directly profiled and debugged in the browser, making optimization and bug-fixing work much simpler. There is no additional compilation step or build configuration like there is for WebAssembly code, making it much easier to prototype and deploy an application. Any improvements to the browser's JavaScript engine will immediately benefit performance, while a WebAssembly application likely needs to be recompiled or rewritten to take advantage of browser improvements. However, while modern JavaScript engines like V8 and JavaScriptCore are fast and perfectly capable of running intense graphics applications, the language has a performance ceiling. In particular, the language is single-threaded, uses automatic memory management, and cannot leverage SIMD in the browser.
-
-The choice of engine is not as clear-cut as performance vs. usability. Given the complex nature of rendering engines, it is very difficult to build comprehensive performance benchmarks proving one engine is faster than another. It is more important to choose an engine based on the type of experience you want to build and your previous development experience.
-
-### Memory Management in 3D Web Applications
-
-3D applications running in the browser can be very sensitive to JavaScript Garbage Collection (GC) pauses. [Garbage Collection](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)) is an automatic memory management technique used in many programming languages, including JavaScript. This technique helps avoid issues like memory leaks and dangling pointers, but has some performance overhead. When memory usage is high in a particular frame, the resulting garbage collection step will freeze the main frame until it completes. In WebXR, this freeze can result in dropped frames, affecting user experience. Although engines like Unity use garbage collection in C# scripting contexts [\[10\]](https://docs.unity3d.com/6000.1/Documentation/Manual/performance-garbage-collector.html), the underlying engine is written in C++, which can take advantage of manual memory management in native contexts. Engines written in JavaScript, like Three.js, do not have this advantage, and developers must be very careful about allocating memory and reusing resources like Vectors and Arrays.
 
 ## Quantifying the Characteristics of Good Optimization
 
@@ -160,6 +136,32 @@ The choice of engine is not as clear-cut as performance vs. usability. Given the
 ### Input Latency
 
 ## The Challenges of Optimizing for the Browser
+
+### Performance Differences between WebGL and Native Rendering APIs
+
+By default, rendering engines like Three.js, Babylon.js, Unity, and PlayCanvas use the [WebGL 2 API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API#webgl_2) to take advantage of hardware-accelerated graphics in the browser. WebGL 2 largely conforms to the Open GL ES 2.0 standard and dispatches commands to the GPU, meaning that the performance of a WebGL API call is very close to the corresponding native OpenGL call. However, there are some limitations to WebGL 2 in comparison to native graphics APIs:
+
+- **Dispatching Overhead**: There is [overhead when dispatching WebGL calls on the CPU](https://docs.unity3d.com/6000.3/Documentation/Manual/webgl-performance.html), as the WebGL API call must be translated into the correct native graphics API call. Further, the browser implements more security checks than native code to prevent things like [Out of Range Memory Accesses](https://www.khronos.org/webgl/wiki/Main%20Page/cms/security). This slower dispatching limits the number of draw calls that can be performed in the browser.
+- **Missing Modern Features**: Because WebGL is based on OpenGL ES 2.0, it lacks many features that modern graphics APIs like DirectX 12, Metal, and [Vulkan can provide](https://github.com/KhronosGroup/Vulkan-Samples/blob/main/samples/vulkan_basics.adoc), limiting the theoretical performance of an experience. The WebGPU browser API does support many of these features, but WebGPU support is still developing in most major Web engines, like [Three.js](https://github.com/mrdoob/three.js/issues/28968), [Babylon.js](https://doc.babylonjs.com/setup/support/webGPU/webGPUStatus/#features-not-working-because-not-implemented-yet), and [Unity](https://docs.unity3d.com/Manual/WebGPU.html).
+
+### Programming Language Support in 3D Web Applications
+
+For historical reasons and security reasons, the only officially supported browser language is JavaScript. To execute non-JavaScript code directly in the browser, it must be compiled to a binary format known as [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly) (refer to the WebAssembly section below for more details), where it can be directly executed by a virtual machine in the browser.
+
+There are therefore two main approaches to building rendering engines for the web:
+
+- Compiling an existing engine written in a low-level languages (e.g. C, C++, Rust) to WebAssembly. This approach is taken by engines like Unity, Godot, and Bevy.
+- Writing the engine entirely in JavaScript. This approach is used by engines like PlayCanvas, Three.js, and Babylon.js.
+
+Each approach has certain tradeoffs. With the WebAssembly approach, one challenge is compatibility. For example, automatic memory management is constrained in WebAssembly to maintain security, leading to potential [out-of-memory errors](https://docs.unity3d.com/6000.1/Documentation/Manual/webgl-memory.html) that may not occur in a native application. Another challenge is interfacing with the browser. [Browser APIs are generally not available to the WebAssembly runtime](https://webassembly.org/docs/web/); to interface with the browser, WebAssembly code must call a JavaScript function that then calls the corresponding browser API. Sending commands and data over this reflection layer can be expensive, negating some of the benefits of the generally faster WebAssembly code. However, when properly optimized, low-level code compiled to WebAssembly runs much faster than the equivalent JavaScript code, approaching native speeds.
+
+JavaScript-based engines come with some benefits outside of browser compatibility. Engine code can be directly profiled and debugged in the browser, making optimization and bug-fixing work much simpler. There is no additional compilation step or build configuration like there is for WebAssembly code, making it much easier to prototype and deploy an application. Any improvements to the browser's JavaScript engine will immediately benefit performance, while a WebAssembly application likely needs to be recompiled or rewritten to take advantage of browser improvements. However, while modern JavaScript engines like V8 and JavaScriptCore are fast and perfectly capable of running intense graphics applications, the language has a performance ceiling. In particular, the language is single-threaded, uses automatic memory management, and cannot leverage SIMD in the browser.
+
+The choice of engine is not as clear-cut as performance vs. usability. Given the complex nature of rendering engines, it is very difficult to build comprehensive performance benchmarks proving one engine is faster than another. It is more important to choose an engine based on the type of experience you want to build and your previous development experience.
+
+### Memory Management in 3D Web Applications
+
+3D applications running in the browser can be very sensitive to JavaScript Garbage Collection (GC) pauses. [Garbage Collection](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)) is an automatic memory management technique used in many programming languages, including JavaScript. This technique helps avoid issues like memory leaks and dangling pointers, but has some performance overhead. When memory usage is high in a particular frame, the resulting garbage collection step will freeze the main frame until it completes. In WebXR, this freeze can result in dropped frames, affecting user experience. Although engines like Unity use garbage collection in C# scripting contexts [\[10\]](https://docs.unity3d.com/6000.1/Documentation/Manual/performance-garbage-collector.html), the underlying engine is written in C++, which can take advantage of manual memory management in native contexts. Engines written in JavaScript, like Three.js, do not have this advantage, and developers must be very careful about allocating memory and reusing resources like Vectors and Arrays.
 
 ## Optimization Strategies for the Web
 
