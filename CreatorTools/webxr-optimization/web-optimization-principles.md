@@ -206,9 +206,9 @@ General WebGL and WebGPU tutorials:
 ### Loading times
 
 Core Metrics:
-- Time to First Paint (TTFP)
-- Time to First Interaction (TTFI)
-- Navigation Time
+- Time to initial display (TTID)
+- Time to full display (TTFD)
+- Interaction to Next Render (INR)
 
 Scene Metrics Affecting Loading Time:
 - Model and texture file sizes
@@ -261,12 +261,13 @@ Scene Characteristics Affecting Legibility:
 
 Core Metrics:
 - Input latency
+- Interaction to Next Render
 
 ### Scalability
 
 Core Metrics:
 - Mobile Device Average FPS
-- Mobile Device TTFI
+- Mobile Device TTID and TTFD
 - Mobile Device 5th percentile FPS
 - Mobile Device framebuffer resolution
 
@@ -277,15 +278,32 @@ External Factors Affecting Scalability:
 
 ### Average Framerate
 
-### Minimum Framerate
+- Mobile & Desktop: 60 FPS
+- XR: 72 FPS
 
-### Time to First Paint
+### 5th Percentile Minimum Framerate
 
-### Time to First Interaction
+- Mobile & Desktop: 30 FPS
+- XR: 60 FPS
+
+### Interaction to Next Render
+
+- Target: 16 ms
+- Needs Improvement: 16-100 ms
+- Poor: 100+ ms
+
+### Time to initial display
+
+- Target: 1.5 seconds
+
+### Time to full display
+
+- Target: 10 seconds
 
 ### Framebuffer Scaling
 
-### Input Latency
+- Target: 100% Framebuffer Scaling
+- Minimum: 85% Framebuffer Scaling
 
 ## The Challenges of Optimizing for the Browser
 
