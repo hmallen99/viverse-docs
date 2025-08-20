@@ -19,7 +19,22 @@ Modern web browsers, such as Safari, Chrome, Firefox, and Edge, implement a set 
 
 However, the GPU simply outputs this image as a big list of color values into a special memory allocation known as the **[framebuffer](https://en.wikipedia.org/wiki/Framebuffer)**. In order to actually display the image to the user, the browser provides a special HTML component called the [**canvas**](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/canvas). This canvas component occupies a rectangular area of a webpage, and essentially the output from the GPU. In practice, the developer constructs a canvas, and then accesses the appropriate graphics API (WebGL or WebGPU) through a reference to the canvas. The implementation details of rendering to the canvas are abstracted away from the user.
 
-### Drawing Triangles in the Browser
+### Programming Language Support in Web Rendering Engines
+
+The only officially supported browser language is [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript). To execute non-JavaScript code directly in the browser, it must be compiled to a binary format known as [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly), where it can be directly executed by a virtual machine in the browser.
+
+There are therefore two main approaches to building rendering engines for the web:
+
+- Compiling an existing engine written in a low-level languages (e.g. C, C++, Rust) to WebAssembly. This approach is taken by engines like [Unity](https://docs.unity3d.com/2020.3/Documentation/Manual/webgl.html), [Godot](https://docs.godotengine.org/en/stable/about/list_of_features.html#platforms), and [Bevy](https://bevy.org/examples/).
+- Writing the engine entirely in JavaScript. This approach is used by engines like [PlayCanvas](https://playcanvas.com/), [Three.js](https://threejs.org/), and [Babylon.js](https://www.babylonjs.com/).
+
+Each approach has certain tradeoffs. With the WebAssembly approach, one challenge is compatibility. For example, automatic memory management is constrained in WebAssembly to maintain security, leading to potential [out-of-memory errors](https://docs.unity3d.com/6000.1/Documentation/Manual/webgl-memory.html) that may not occur in a native application. Another challenge is interfacing with the browser. [Browser APIs are generally not available to the WebAssembly runtime](https://webassembly.org/docs/web/); to interface with the browser, WebAssembly code must call a JavaScript function that then calls the corresponding browser API. Sending commands and data over this reflection layer can be expensive, negating some of the benefits of the generally faster WebAssembly code. However, when properly optimized, low-level code compiled to WebAssembly runs much faster than the equivalent JavaScript code, approaching native speeds.
+
+JavaScript-based engines come with some benefits outside of browser compatibility. Engine code can be directly profiled and debugged in the browser, making optimization and bug-fixing work much simpler. There is no additional compilation step or build configuration like there is for WebAssembly code, making it much easier to prototype and deploy an application. Any improvements to the browser's JavaScript engine will immediately benefit performance, while a WebAssembly application likely needs to be recompiled or rewritten to take advantage of browser improvements. However, while modern JavaScript engines like V8 and JavaScriptCore are fast and perfectly capable of running intense graphics applications, the language has a performance ceiling. In particular, the language is single-threaded, uses automatic memory management, and cannot leverage [Single-Instruction Multiple Data](https://en.wikipedia.org/wiki/Single_instruction%2C_multiple_data) (SIMD) parallelization in the browser.
+
+The choice of engine is not as clear-cut as performance vs. usability. Given the complex nature of rendering engines, it is very difficult to build comprehensive performance benchmarks proving one engine is faster than another. It is more important to choose an engine based on the type of experience you want to build and your previous development experience.
+
+### Building a Rendering Pipeline with WebGL
 
 Graphics APIs like WebGL and WebGPU are used to construct a **[rendering pipeline](https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview)**, a program that defines the steps that the underlying native Graphics API (OpenGL, Vulkan, Metal, DirectX) must take when rendering objects. At a _very_ high level, this consists of:
 
@@ -109,7 +124,7 @@ gl.clear(gl.COLOR_BUFFER_BIT);
 gl.drawArrays(gl.TRIANGLES, 0, 3);
 ```
 
-### Core Engine Abstractions: Meshes, Materials, Cameras, and Lights
+### Building Engine Abstractions: Meshes, Materials, Cameras, and Lights
 
 Rendering API code is often regarded as verbose and unapproachable, so some abstractions are built on top to make things easier. At the highest level of abstraction is the **scene**, a tree-like data structure that defines the hierarchy of elements that are rendered to the screen. The scene is composed of **meshes**, collections of triangles that from a shape, and have some position, scale, and rotation in the world. Each mesh has a **material**, which defines how the mesh responds to **lights** in the scene. Materials may render just a solid color, can render a **texture**, or can imitate real-life material properties, like wood or skin. A **camera** renders the scene from a particular perspective, which is then output to the browser window via the Canvas API.
 
@@ -171,7 +186,7 @@ function runApp() {
 }
 ```
 
-### Responding to User Inputs in the Browser
+### Updating the Scene in Response to User Inputs in the Browser
 
 Generally, users need to interact with the program in some way. In a desktop first-person video game, for example, the camera moves forward, left, back, and right with the W, A, S, and D keys, respectively, and the the camera pans up, down, left, and right by moving the mouse in the respective direction. The browser exposes a few APIs to allow controlled access to the mouse, keyboard, touch, and gamepad events:
 
@@ -180,22 +195,7 @@ Generally, users need to interact with the program in some way. In a desktop fir
 - Developers can use the [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API) to detect when a controller is connected to a computer and determine the layout of the controller.
 - For XR devices, the [WebXR API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API) provides abstractions for handling headset movement and hand/gamepad inputs.
 
-### A Note On Programming Language Support in Web Rendering Engines
-
-For historical reasons and security reasons, the only officially supported browser language is [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript). To execute non-JavaScript code directly in the browser, it must be compiled to a binary format known as [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly), where it can be directly executed by a virtual machine in the browser.
-
-There are therefore two main approaches to building rendering engines for the web:
-
-- Compiling an existing engine written in a low-level languages (e.g. C, C++, Rust) to WebAssembly. This approach is taken by engines like Unity, Godot, and Bevy.
-- Writing the engine entirely in JavaScript. This approach is used by engines like PlayCanvas, Three.js, and Babylon.js.
-
-Each approach has certain tradeoffs. With the WebAssembly approach, one challenge is compatibility. For example, automatic memory management is constrained in WebAssembly to maintain security, leading to potential [out-of-memory errors](https://docs.unity3d.com/6000.1/Documentation/Manual/webgl-memory.html) that may not occur in a native application. Another challenge is interfacing with the browser. [Browser APIs are generally not available to the WebAssembly runtime](https://webassembly.org/docs/web/); to interface with the browser, WebAssembly code must call a JavaScript function that then calls the corresponding browser API. Sending commands and data over this reflection layer can be expensive, negating some of the benefits of the generally faster WebAssembly code. However, when properly optimized, low-level code compiled to WebAssembly runs much faster than the equivalent JavaScript code, approaching native speeds.
-
-JavaScript-based engines come with some benefits outside of browser compatibility. Engine code can be directly profiled and debugged in the browser, making optimization and bug-fixing work much simpler. There is no additional compilation step or build configuration like there is for WebAssembly code, making it much easier to prototype and deploy an application. Any improvements to the browser's JavaScript engine will immediately benefit performance, while a WebAssembly application likely needs to be recompiled or rewritten to take advantage of browser improvements. However, while modern JavaScript engines like V8 and JavaScriptCore are fast and perfectly capable of running intense graphics applications, the language has a performance ceiling. In particular, the language is single-threaded, uses automatic memory management, and cannot leverage [Single-Instruction Multiple Data](https://en.wikipedia.org/wiki/Single_instruction%2C_multiple_data) (SIMD) parallelization in the browser.
-
-The choice of engine is not as clear-cut as performance vs. usability. Given the complex nature of rendering engines, it is very difficult to build comprehensive performance benchmarks proving one engine is faster than another. It is more important to choose an engine based on the type of experience you want to build and your previous development experience.
-
-### Learning Resources
+### More Learning Resources
 
 General WebGL and WebGPU tutorials:
 
