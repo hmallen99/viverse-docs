@@ -37,7 +37,8 @@
 
 ## Performance Optimization
 
-* [Optimizing 3D Experiences for WebXR](webxr-optimization/README.md)
+* [Introduction to Optimizing for the Web](webxr-optimization/introduction-to-web-optimization.md)
+* [The Principles of Web Optimization](webxr-optimization/web-optimization-principles)
 
 ## PlayCanvas SDK
 
