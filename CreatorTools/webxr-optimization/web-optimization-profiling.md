@@ -97,6 +97,7 @@ Overview:
 - Licensing: Closed source, licensed
 - Learning: Extensive documentation, huge community
 - Developer Experience: Great Editor, great for teams, additional build/compile step
+- Third-party integrations: Does not integrate well with JS libraries
 - Profiling: Extensive native tools, fewer Web tools
 - Positives: Good performance, scalability
 - Negatives: Large file sizes
@@ -137,6 +138,7 @@ Overview:
 - Licensing: Open Source, Free
 - Learning: Good documentation, large community, many examples, less structured onboarding
 - Developer Experience: Poor editor/playground support, integrates with Git
+- Third-party integrations: Integrates very well with React, many third party libraries adding features
 - Profiling: First-party plugin, integrates well with the browser
 - Positives: Decent performance, small file sizes
 - Negatives: easy to hit performance ceiling, barebones feature set by default
@@ -168,24 +170,11 @@ Overview:
 - Licensing: Open Source, free engine, paid integrations available
 - Learning: Good documentation, decent onboarding, smaller community, learning pathways for multiple types of developers
 - Developer Experience: Paid editor support, integrates with source control
+- Third-party integrations: Integrates very well with React, few third party libraries for adding features
 - Profiling: First-party plugin, integrates well with the browser
 - Positives: Good performance, medium file sizes
 - Negatives: Some paid editor features
 - Neutrals: JavaScript engine, ECS architecture
-
-Characteristics:
-- JavaScript
-- Free
-- Open Source
-
-Strengths:
-- 3D editor
-- Fully featured game engine
-- Ability to dive deep into the engine or use a standardized approach
-- Entity-Component-System (ECS) architecture
-
-Weaknesses:
-- Paid Plans for private projects and team features
 
 General Resources:
 - [PlayCanvas Docs](https://developer.playcanvas.com/)
@@ -214,6 +203,7 @@ Overview:
 - Licensing: Open Source, Free
 - Learning: Good documentation, decent onboarding, smaller community, medium barrier to entry
 - Developer Experience: Decent playground, very simple editor, no first-party version control
+- Third-party integrations: Integrates with React, Angular, Vue. Some third-party libraries
 - Profiling: First-party plugin, integrates well with the browser
 - Positives: Decent performance by default, high performance ceiling, First class WebXR, Large feature set
 - Negatives: larger file sizes for a JavaScript Engine
