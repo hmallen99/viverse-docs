@@ -10,6 +10,8 @@ description: Resources for profiling 3D web applications and rendering engines
 
 ### Browser Inspector:
 
+The following tutorial shows screenshots from Chrome, but the process is very similar in Edge, Safarai, and Firefox. Edge devtools are branched off of Chrome devtools. Firefox and Safari are less feature-rich in terms of startup profiling and performance profiling, so we recommend testing and profiling in multiple browsers if possible. Resources for each browser are collected in the next section.
+
 Opening the browser inspector:
 
 Windows	Firefox:	Press Ctrl-Shift-K.
