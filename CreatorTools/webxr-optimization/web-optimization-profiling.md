@@ -6,8 +6,6 @@ description: Resources for profiling 3D web applications and rendering engines
 
 ## Core Browser Profiling Tools
 
-### Recording FPS
-
 ### Browser Inspector:
 
 The following tutorial shows screenshots from Chrome, but the process is very similar in Edge, Safarai, and Firefox. Edge devtools are branched off of Chrome devtools. Firefox and Safari are less feature-rich in terms of startup profiling and performance profiling, so we recommend testing and profiling in multiple browsers if possible. Resources for each browser are collected in the next section.
@@ -89,6 +87,16 @@ Select the appropriate level of throttling
 Select the device emulations to emulate
 
 For WebXR Emulation, install the [Meta Immersive Web Emulator](https://developers.meta.com/horizon/blog/webxr-development-immersive-web-emulator/)
+
+### Showing FPS
+
+Chrome: Open Browser Inspector > ctrl/cmd + shift + P > "show FPS"
+
+### Profiling from JavaScript
+
+Stats Counter: https://github.com/mrdoob/stats.js/
+
+Draw Call Profiler: https://github.com/BabylonJS/Spector.js
 
 ## Profiling Major Web Browsers and Devices
 
