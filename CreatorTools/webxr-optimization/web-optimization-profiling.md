@@ -92,22 +92,15 @@ Mobile Tools:
 
 ### Unity
 
-Characteristics:
-- Native Engine
-- Closed Source
-- Licensed
-
-Strengths:
-- Full feature set: physics, mobile support
-- Export to native platforms
-- Fully-featured 3D Editor
-- Large Community
-
-Weaknesses:
-- Closed-source engine, strict licensing
-- Harder to profile and optimize web experiences
-- Large initial file sizes
-- Additional build/compile step
+Overview:
+- Feature Set: 2D, 3D, Physics, Touch controls, PBR
+- Licensing: Closed source, licensed
+- Learning: Extensive documentation, huge community
+- Developer Experience: Great Editor, great for teams, additional build/compile step
+- Profiling: Extensive native tools, fewer Web tools
+- Positives: Good performance, scalability
+- Negatives: Large file sizes
+- Neutrals: Native engine, write in C#, opinionated engine
 
 General Resources:
 
@@ -139,23 +132,15 @@ Profiling Tools:
 
 ### Three.js
 
-Characteristics:
-- JavaScript Engine
-- Free
-- Open Source
-
-Strengths:
-- Most widely used JavaScript web engine
-- Large Community
-- Beginner friendly
-- Lots of flexibility
-- Free and Open Source
-
-Weaknesses:
-- Not a fully-featured game engine. Physics, touch controls, etc. require 3rd party support
-- Advanced features are hidden away from experienced devs
-- Not very opinionated
-- Fragmented community, many forks of the engine
+Overview:
+- Feature Set: Solid 3D by default, XR support. Extensive third-party libraries
+- Licensing: Open Source, Free
+- Learning: Good documentation, large community, many examples, less structured onboarding
+- Developer Experience: Poor editor/playground support, integrates with Git
+- Profiling: First-party plugin, integrates well with the browser
+- Positives: Decent performance, small file sizes
+- Negatives: easy to hit performance ceiling, barebones feature set by default
+- Neutrals: JavaScript engine, not opinionated
 
 General Resources:
 - [Documentation](https://threejs.org/manual/#en/creating-a-scene)
@@ -177,6 +162,16 @@ Profiling and Debugging Resources:
 - [Stats.js](https://github.com/mrdoob/stats.js/): JavaScript Performance Monitor
 
 ### PlayCanvas
+
+Overview:
+- Feature Set: 2D, 3D, Physics, XR, UI, Touch Input, GLTF Animation. Extensive third-party libraries
+- Licensing: Open Source, free engine, paid integrations available
+- Learning: Good documentation, decent onboarding, smaller community, learning pathways for multiple types of developers
+- Developer Experience: Paid editor support, integrates with source control
+- Profiling: First-party plugin, integrates well with the browser
+- Positives: Good performance, medium file sizes
+- Negatives: Some paid editor features
+- Neutrals: JavaScript engine, ECS architecture
 
 Characteristics:
 - JavaScript
@@ -214,24 +209,15 @@ Debugging Resources:
 
 ### Babylon.js
 
-Characteristics:
-- JavaScript
-- Free
-- Open Source
-
-Strengths:
-- Large community, backed by Microsoft
-- Beginner friendly
-- Lots of flexibility
-- Highly optimizable
-- Larger feature set than Three.js
-- Playground system for quickly prototyping
-- Free and Open Source
-- Node Materials
-
-Weaknesses:
-- Large initial bundle sizes
-- No 3D editor
+Overview:
+- Feature Set: 3D, Physics, GLTF animations, XR, UI, Node editor for shaders
+- Licensing: Open Source, Free
+- Learning: Good documentation, decent onboarding, smaller community, medium barrier to entry
+- Developer Experience: Decent playground, very simple editor, no first-party version control
+- Profiling: First-party plugin, integrates well with the browser
+- Positives: Decent performance by default, high performance ceiling, First class WebXR, Large feature set
+- Negatives: larger file sizes for a JavaScript Engine
+- Neutrals: JavaScript engine, not opinionated
 
 General Resources:
 - [Documentation](https://doc.babylonjs.com/)
