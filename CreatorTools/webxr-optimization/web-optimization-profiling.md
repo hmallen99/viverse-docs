@@ -6,25 +6,87 @@ description: Resources for profiling 3D web applications and rendering engines
 
 ## Core Browser Profiling Tools
 
-### Overview of Tools
+### Recording FPS
+
+### Browser Inspector:
+
+Opening the browser inspector:
+
+Windows	Firefox:	Press Ctrl-Shift-K.
+Windows	Chrome:	Press Ctrl-Shift-J.
+Windows Edge:	Press F12.
+Mac	Firefox	Press Command-Option-K.
+Mac	Chrome	Press Command-Option-J.
+Mac	Safari:	Press Command-Option-C.
 
 Scripting Performance:
 
-Native Traces:
+Select the Performance tab (Timelines in Safari) and click the "record" button. If your browser supports memory profiling, be sure to select the option. This allows you to analyze garbage collection pauses with more detail.
+
+This generates a [flame graph](https://queue.acm.org/detail.cfm?id=2927301), which shows how much time is spent in individual functions in each frame. The functions stack downwards, so the core render function will be near the top, and native calls, JavaScript APIs, and WebGL calls will be at the bottom.
 
 Memory Usage:
 
+Select the Memory tab and click the "record" button.
+
+This generates an overview of how much memory is consumed by your application, and where the majority of memory is allocated. It is important to minimize the amount of temporary "object" and "array" memory used by your application, as this memory contributes the most to garbage collection pauses.
+
+Loading Time:
+
+To profile scripting performance while loading, reload the page while recording performance.
+
+Chrome has built-in tools for analyzing loading time performance in the "Lighthouse" tab. This gives information on asset download sizes, how long the initial load takes, and how long it takes for the application to come fully interactive. This is useful in determining TTID and TTFD.
+
 Debugging:
 
-Networking and Asset Loading Profiling:
+Select the "sources" tab (debugger in Firefox) to begin debugging.
+
+Select a file to debug and place a breakpoint to pause the application on.
+
+Conditional breakpoints can be used to pause the application under special conditions.
+
+Step through the application until the bug has been discovered.
 
 Device Emulation:
 
-Remote Inspection:
+### Remote Inspection:
 
-WebXR Emulation:
+Android Remote Debugging:
+Install [ADB](https://developer.android.com/tools/adb) to connect to the android device.
 
-- [Meta Immersive Web Emulator](https://developers.meta.com/horizon/blog/webxr-development-immersive-web-emulator/)
+Connect an android device via USB
+
+Run `adb devices` to start the debugging server.
+
+Navigate to chrome://inspect/devices and inspect the connected device
+
+This brings up the browser inspector for the connected device
+
+To collect native traces, in chrome://inspect/devices, select the "trace" option.
+
+To generate XR debug info, select Edit categories > check xr.debug
+
+Click record to begin generating a native trace.
+
+iOS Remote Debugging
+
+Enable Developer Mode on the iOS device
+
+Connect to the device over WiFi or USB
+
+Open Safari > Develop > Your Device > Your Application
+
+Profile the application using safari dev tools.
+
+### Device Emulation:
+
+Open the Browser Inspector and select the following icon:
+
+Select the appropriate level of throttling
+
+Select the device emulations to emulate
+
+For WebXR Emulation, install the [Meta Immersive Web Emulator](https://developers.meta.com/horizon/blog/webxr-development-immersive-web-emulator/)
 
 ## Profiling Major Web Browsers and Devices
 
