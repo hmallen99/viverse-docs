@@ -186,9 +186,31 @@ Characteristics:
 Strengths:
 - 3D editor
 - Fully featured game engine
+- Ability to dive deep into the engine or use a standardized approach
+- Entity-Component-System (ECS) architecture
 
 Weaknesses:
 - Paid Plans for private projects and team features
+
+General Resources:
+- [PlayCanvas Docs](https://developer.playcanvas.com/)
+- [Tutorials](https://developer.playcanvas.com/tutorials/)
+- [Editor](https://playcanvas.com/products/editor)
+
+Optimization Resources:
+- [Optimization](https://developer.playcanvas.com/user-manual/optimization/)
+- [Texture Compression](https://developer.playcanvas.com/user-manual/optimization/texture-compression/)
+- [Batching](https://developer.playcanvas.com/user-manual/graphics/advanced-rendering/batching/)
+- [Hardware Instancing](https://developer.playcanvas.com/user-manual/graphics/advanced-rendering/hardware-instancing/)
+- [Indirect Drawing](https://developer.playcanvas.com/user-manual/graphics/advanced-rendering/indirect-drawing/)
+- [Optimizing Load Time](https://developer.playcanvas.com/user-manual/optimization/load-time/)
+- [Optimizing WebXR](https://developer.playcanvas.com/user-manual/xr/optimizing-webxr/)
+
+Debugging Resources:
+
+- [Browser Dev Tools](https://developer.playcanvas.com/user-manual/scripting/debugging/browser-dev-tools/)
+- [GPU Profiling](https://developer.playcanvas.com/user-manual/optimization/gpu-profiling/)
+- [Profiler](https://developer.playcanvas.com/user-manual/optimization/profiler/)
 
 ### Babylon.js
 
