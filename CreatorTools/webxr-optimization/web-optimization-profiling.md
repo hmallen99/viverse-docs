@@ -207,7 +207,7 @@ Overview:
 - Profiling: First-party plugin, integrates well with the browser
 - Positives: Decent performance by default, high performance ceiling, First class WebXR, Large feature set
 - Negatives: larger file sizes for a JavaScript Engine
-- Neutrals: JavaScript engine, not opinionated
+- Neutrals: JavaScript engine, not opinionated, supported by Microsoft
 
 General Resources:
 - [Documentation](https://doc.babylonjs.com/)
