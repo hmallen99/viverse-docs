@@ -157,6 +157,10 @@ Characteristics:
 
 Strengths:
 - 3D editor
+- Fully featured game engine
+
+Weaknesses:
+- Paid Plans for private projects and team features
 
 ### Babylon.js
 
@@ -173,10 +177,25 @@ Strengths:
 - Larger feature set than Three.js
 - Playground system for quickly prototyping
 - Free and Open Source
+- Node Materials
 
 Weaknesses:
 - Large initial bundle sizes
 - No 3D editor
 
-Resources:
+General Resources:
+- [Documentation](https://doc.babylonjs.com/)
+- [Playground](https://playground.babylonjs.com/)
+
+Optimization Resources:
+- [Optimization Guide](https://doc.babylonjs.com/features/featuresDeepDive/scene/optimize_your_scene)
+- [Octree Optimization](https://doc.babylonjs.com/features/featuresDeepDive/scene/optimizeOctrees/)
+- [Resource Caching](https://doc.babylonjs.com/features/featuresDeepDive/scene/optimizeCached/)
+- [SceneOptimizer](https://doc.babylonjs.com/features/featuresDeepDive/scene/sceneOptimizer/)
+- [Offscreen Canvas](https://doc.babylonjs.com/features/featuresDeepDive/scene/offscreenCanvas/)
+- [Creating Loading Screens](https://doc.babylonjs.com/features/featuresDeepDive/scene/customLoadingScreen/)
+- [Instancing](https://doc.babylonjs.com/features/featuresDeepDive/mesh/copies/)
+
+Profiling and Debugging Resources:
 - [Spector](https://github.com/BabylonJS/Spector.js)
+- [Inspector](https://doc.babylonjs.com/toolsAndResources/inspector/)
