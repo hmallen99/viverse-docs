@@ -109,6 +109,34 @@ Weaknesses:
 - Large initial file sizes
 - Additional build/compile step
 
+General Resources:
+
+- [Documentation](https://docs.unity3d.com/Manual/index.html)
+- [Web Documentation](https://docs.unity3d.com/Manual/webgl.html)
+- [Publishing Unity Web Experiences](https://docs.unity3d.com/Manual/webgl-gettingstarted.html)
+- [Building Unity Web Experiences](https://docs.unity3d.com/Manual/webgl-building-distribution.html)
+
+Optimization Resources:
+
+- [Technical Limitations](https://docs.unity3d.com/Manual/webgl-technical-overview.html)
+- [Web Memory Optimization](https://docs.unity3d.com/Manual/webgl-memory.html)
+- [Web Graphics Recommendations](https://docs.unity3d.com/Manual/web-graphics-apis-intro.html)
+- [Texture Compression](https://docs.unity3d.com/Manual/webgl-texture-compression.html)
+- [WebAssembly Optimization](https://docs.unity3d.com/Manual/wasm-2023-features.html)
+- [Optimizing Web Builds](https://docs.unity3d.com/Manual/web-optimization.html)
+- [Optimizing Web Builds for Mobile](https://docs.unity3d.com/Manual/web-optimization-mobile.html)
+- [General Unity Optimization](https://docs.unity3d.com/Manual/analysis.html)
+- [Optimizing Draw Calls](https://docs.unity3d.com/Manual/optimizing-draw-calls.html)
+- [Optimizing Shaders](https://docs.unity3d.com/Manual/SL-ShaderPerformance.html)
+
+Profiling Tools:
+
+- [Unity Profiler](https://docs.unity3d.com/Manual/Profiler.html)
+- [Other Profiling Tools](https://docs.unity3d.com/Manual/performance-profiling-tools.html)
+- [Graphics Performance Profiling](https://docs.unity3d.com/Manual/graphics-performance-profiling.html)
+- [Debug Web Builds](https://docs.unity3d.com/6000.3/Documentation/Manual/webgl-debugging.html)
+- [How to profile Web Builds](https://unity.com/how-to/profile-optimize-web-build#the-importance-of-profiling)
+
 ### Three.js
 
 Characteristics:
